@@ -27,36 +27,37 @@ function createNewBook() {
   let status = readStatusInput.checked;
 
   let book = {title, desc, pages, status};
-  addBookToLibrary(book);
+  // addBookToLibrary(book);
   myLibrary.push(book);
   saveLocal(myLibrary);
+  clearBooks();
+  loadBooks();
 }
-
-// function Book(title, description, pages, read) {
-//   return { title, description, pages, read };
-//   // the constructor...
-// }
 
 setMyLibrary();
 
 btnAddNewBook.addEventListener("click", openForm);
 
 function openForm() {
-  newBookForm.style.display = "flex";
+  if (newBookForm.style.display === "flex") {
+    newBookForm.style.display = "none";
+  } else {
+    newBookForm.style.display = "flex";
+  }
+}
+
+function addNewBook() {
+  if (newBookForm.style.display === "flex") {
+    newBookForm.style.display = "none";
+  } else {
+    newBookForm.style.display = "flex";
+  }
 }
 
 function saveLocal(myLibrary) {
   localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
 }
 
-function addNewBook() {
-  let addNew = document.querySelector(".new-book");
-  if (addNew.style.display === "flex") {
-    addNew.style.display = "none";
-  } else {
-    addNew.style.display = "flex";
-  }
-}
 
 function clearBooks() {
   container = document.querySelector('.books-container');
@@ -88,8 +89,6 @@ function addBookToLibrary(book) {
   let bookPages = document.createElement("p");
   bookPages.textContent = "Has " + book.pages + " pages.";
   bookPages.className = "pages";
-
-  console.log(book);
 
   let readStatus = document.createElement("p");
   if (book.status === true) {
@@ -142,18 +141,19 @@ function switchReadStatus(e) {
   book = myLibrary[bookIndex];
   let text = e.target.parentNode.querySelector(".read-status-text");
 
-  if (book.status === false) {
-    book.status = true;
-    e.target.textContent = "Unread";
-    text.textContent = "You have read this book.";
-  } else {
+  if (book.status === true) {
     book.status = false;
     e.target.textContent = "Read";
     text.textContent = "You have not read this book.";
+  } else {
+    book.status = true;
+    e.target.textContent = "Unread";
+    text.textContent = "You have read this book.";
   }
 
   saveLocal(myLibrary);
-  // loadBooks(myLibrary);
+  clearBooks();
+  loadBooks(myLibrary);
 
 }
 
