@@ -4,12 +4,13 @@ h1 {
 
 .books-container {
   display: flex;
-  flex: row wrap;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
 }
 
 .book-card {
-  flex-basis: 20%;
+  flex-basis: 100%;
   min-height: 150px;
   background-color: aqua;
   border: 1px solid #000;
@@ -22,4 +23,23 @@ h1 {
   display: none;
   flex-direction: column;
   align-items: center;
+}
+
+.remove-btn {
+  font-weight: bold;
+  background-color: red;
+  color: #ffffff;
+}
+
+
+@media only screen and (min-width: 992px) {
+  .book-card {
+  flex-basis: 20%;
+  min-height: 150px;
+  background-color: aqua;
+  border: 1px solid #000;
+  border-radius: 15px;
+  margin: 10px 10px;
+  padding: 15px;
+}
 }
