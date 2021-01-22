@@ -1,4 +1,9 @@
 const booksContainer = document.querySelector(".books-container");
+const bookTitleInput = document.querySelector("#book-title");
+const bookDescriptionInput = document.querySelector("#book-description");
+const pagesInput = document.querySelector("#pages-number");
+const readStatusInput = document.querySelector("#read-status");
+const buttonInput = document.querySelector(".btn");
 
 let myLibrary = [
   {
@@ -27,7 +32,20 @@ let myLibrary = [
   },
 ];
 
-function Book() {
+buttonInput.addEventListener("click", createNewBook);
+
+function createNewBook() {
+  let title = bookTitleInput.value;
+  let desc = bookDescriptionInput.value;
+  let pages = pagesInput.value;
+  let status = readStatusInput.checked;
+
+  let book = Book(title, desc, pages, status);
+  addBookToLibrary(book);
+}
+
+function Book(title, description, pages, read) {
+  return { title, description, pages, read };
   // the constructor...
 }
 
@@ -58,4 +76,4 @@ function addBookToLibrary(book) {
   booksContainer.appendChild(bookCard);
 }
 
-  myLibrary.forEach((book) => addBookToLibrary(book));
+myLibrary.forEach((book) => addBookToLibrary(book));

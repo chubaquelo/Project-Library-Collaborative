@@ -1,13 +1,28 @@
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
   <title>Library Project JS</title>
 </head>
+
 <body>
   <header>
     <h1>Library Collaborative Project (JS)</h1>
+    <div class="new-book">
+      <form>
+        <label for="title">Book Title:</label><br>
+        <input type="text" id="book-title" name="book-title"><br>
+        <label for="description">Book Description:</label><br>
+        <input type="text" id="book-description" name="book-description"><br>
+        <label for="pages">Number of pages:</label><br>
+        <input type="text" id="pages-number" name="pages-number"><br>
+        <input type="checkbox" id="read-status" name="read-status" value="Book">
+        <label for="read-status">Have you read this book?</label><br>
+        <button type="button" class="btn">NEW BOOK</button>
+      </form>
+    </div>
   </header>
   <main>
     <div class="books-container">
@@ -16,4 +31,5 @@
   </main>
   <script type="text/javascript" src="app.js"></script>
 </body>
+
 </html>
