@@ -1,0 +1,19 @@
+h1 {
+  text-align: center;
+}
+
+.books-container {
+  display: flex;
+  flex: row wrap;
+  justify-content: center;
+}
+
+.book-card {
+  flex-basis: 20%;
+  min-height: 150px;
+  background-color: aqua;
+  border: 1px solid #000;
+  border-radius: 15px;
+  margin: 10px 10px;
+  padding: 15px;
+}
