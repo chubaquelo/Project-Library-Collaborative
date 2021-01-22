@@ -59,6 +59,7 @@ function addBookToLibrary(book) {
   } else {
     readStatus.textContent = 'You have not read this book.';
   }
+  readStatus.className = 'read-status-text';
 
   let changeReadStatusBtn = document.createElement('button');
   changeReadStatusBtn.className = 'read-switch-btn';
@@ -68,7 +69,7 @@ function addBookToLibrary(book) {
   } else {
     changeReadStatusBtn.textContent = "Read";
   }
-  changeReadStatusBtn.addEventListener("click", switchReadStatus(book));
+  changeReadStatusBtn.addEventListener("click", switchReadStatus);
 
   let removeBtn = document.createElement('button');
   removeBtn.className = 'remove-btn';
@@ -87,19 +88,26 @@ function addBookToLibrary(book) {
 }
 
 function removeCard(e) {
-  e.target.position();
+  e.target.parentNode.remove();
+  bookIndex = e.target.parentNode.getAttribute('data-idx');
+  myLibrary.splice(bookIndex, 1);
 }
 
-function switchReadStatus(book) {
+function switchReadStatus(e) {
   // switch button and read status for a book
-  // let readBtn = document.querySelector(".read-switch-btn");
-  // if (book.read === true) {
-  //   book.read = false;
-  //   readBtn.textContent = "Read";
-  // } else {
-  //   book.read = true;
-  //   readBtn.textContent = "Unread";
-  // }
+  bookIndex = e.target.parentNode.getAttribute('data-idx');
+  book = myLibrary[bookIndex];
+  let text = e.target.parentNode.querySelector(".read-status-text");
+  
+  if (book.read === true) {
+    book.read = false;
+    e.target.textContent = "Read";
+    text.textContent = "You have not read this book.";
+  } else {
+    book.read = true;
+    e.target.textContent = "Unread";
+    text.textContent = "You have read this book.";
+  }
 }
 
 myLibrary.forEach((book) => addBookToLibrary(book));
