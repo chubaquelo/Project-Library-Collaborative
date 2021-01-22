@@ -1,11 +1,23 @@
+let myLibrary = [];
+
+function setMyLibrary() {
+  if (localStorage.getItem('myLibrary') !== null) {
+    myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
+    loadBooks();
+  } else {
+    myLibrary = [];
+  }
+}
+
 const booksContainer = document.querySelector(".books-container");
 const bookTitleInput = document.querySelector("#book-title");
 const bookDescriptionInput = document.querySelector("#book-description");
 const pagesInput = document.querySelector("#pages-number");
 const readStatusInput = document.querySelector("#read-status");
 const buttonInput = document.querySelector(".btn");
+const btnAddNewBook = document.querySelector(".btn-add-new-book");
+const newBookForm = document.querySelector(".new-book");
 
-let myLibrary = [];
 
 buttonInput.addEventListener("click", createNewBook);
 
@@ -24,6 +36,19 @@ function Book(title, description, pages, read) {
   return { title, description, pages, read };
   // the constructor...
 }
+
+setMyLibrary();
+
+btnAddNewBook.addEventListener("click", openForm);
+
+function openForm() {
+  newBookForm.style.display = "flex";
+}
+
+function saveLocal(myLibrary) {
+  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+}
+
 
 function addNewBook() {
   let addNew = document.querySelector(".new-book");
@@ -63,7 +88,7 @@ function addBookToLibrary(book) {
 
   let changeReadStatusBtn = document.createElement('button');
   changeReadStatusBtn.className = 'read-switch-btn';
-  
+
   if (book.read === true) {
     changeReadStatusBtn.textContent = "Unread";
   } else {
@@ -81,7 +106,7 @@ function addBookToLibrary(book) {
     bookDescription,
     bookPages,
     readStatus,
-    changeReadStatusBtn, 
+    changeReadStatusBtn,
     removeBtn
   );
   booksContainer.appendChild(bookCard);
@@ -98,7 +123,7 @@ function switchReadStatus(e) {
   bookIndex = e.target.parentNode.getAttribute('data-idx');
   book = myLibrary[bookIndex];
   let text = e.target.parentNode.querySelector(".read-status-text");
-  
+
   if (book.read === true) {
     book.read = false;
     e.target.textContent = "Read";
