@@ -19,7 +19,7 @@ h1 {
 }
 
 .new-book{
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
 }

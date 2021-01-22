@@ -49,6 +49,15 @@ function Book(title, description, pages, read) {
   // the constructor...
 }
 
+function addNewBook() {
+  let addNew = document.querySelector(".new-book");
+  if (addNew.style.display === "none") {
+    addNew.style.display = "flex";
+  } else {
+    addNew.style.display = "none"
+  }
+}
+
 function addBookToLibrary(book) {
   // do stuff here
   let bookCard = document.createElement('div');
