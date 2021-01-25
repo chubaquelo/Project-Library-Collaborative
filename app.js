@@ -21,7 +21,7 @@ const newBookForm = document.querySelector(".new-book");
 buttonInput.addEventListener("click", createNewBook);
 
 function createNewBook() {
-  if (bookTitleInput.value == "" || bookAuthorInput.value == "" || pagesInput.value ==""){
+  if (bookTitleInput.value == "" || bookAuthorInput.value == "" || pagesInput.value == "") {
     alert('You must complete all fields.');
   } else {
     let title = bookTitleInput.value;
@@ -29,8 +29,14 @@ function createNewBook() {
     let pages = pagesInput.value;
     let status = readStatusInput.checked;
 
-    let book = { title, author, pages, status };
-    // addBookToLibrary(book);
+    let book = new Book(title, author, pages, status)
+
+    function Book(title, author, pages, status) {
+      this.title = title;
+      this.author = author;
+      this.pages = pages;
+      this.status = status;
+    }
     myLibrary.push(book);
     saveLocal(myLibrary);
     clearBooks();
@@ -78,7 +84,6 @@ function loadBooks() {
 }
 
 function addBookToLibrary(book) {
-  // do stuff here
   let bookCard = document.createElement("div");
   bookCard.className = "book-card";
   bookCard.setAttribute("data-idx", myLibrary.indexOf(book));
@@ -138,7 +143,6 @@ function removeCard(e) {
 }
 
 function switchReadStatus(e) {
-  // switch button and read status for a book
   clearBooks();
   loadBooks();
   bookIndex = e.target.parentNode.getAttribute("data-idx");
@@ -160,5 +164,3 @@ function switchReadStatus(e) {
   loadBooks(myLibrary);
 
 }
-
-// myLibrary.forEach((book) => addBookToLibrary(book));
