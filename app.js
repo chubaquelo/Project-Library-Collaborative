@@ -11,7 +11,7 @@ function setMyLibrary() {
 
 const booksContainer = document.querySelector(".books-container");
 const bookTitleInput = document.querySelector("#book-title");
-const bookDescriptionInput = document.querySelector("#book-description");
+const bookAuthorInput = document.querySelector("#book-author");
 const pagesInput = document.querySelector("#pages-number");
 const readStatusInput = document.querySelector("#read-status");
 const buttonInput = document.querySelector(".btn");
@@ -21,17 +21,21 @@ const newBookForm = document.querySelector(".new-book");
 buttonInput.addEventListener("click", createNewBook);
 
 function createNewBook() {
-  let title = bookTitleInput.value;
-  let desc = bookDescriptionInput.value;
-  let pages = pagesInput.value;
-  let status = readStatusInput.checked;
+  if (bookTitleInput.value == "" || bookAuthorInput.value == "" || pagesInput.value ==""){
+    alert('You must complete all fields.');
+  } else {
+    let title = bookTitleInput.value;
+    let author = bookAuthorInput.value;
+    let pages = pagesInput.value;
+    let status = readStatusInput.checked;
 
-  let book = {title, desc, pages, status};
-  // addBookToLibrary(book);
-  myLibrary.push(book);
-  saveLocal(myLibrary);
-  clearBooks();
-  loadBooks();
+    let book = { title, author, pages, status };
+    // addBookToLibrary(book);
+    myLibrary.push(book);
+    saveLocal(myLibrary);
+    clearBooks();
+    loadBooks();
+  }
 }
 
 setMyLibrary();
@@ -83,7 +87,7 @@ function addBookToLibrary(book) {
   bookTitle.textContent = book.title;
 
   let bookDescription = document.createElement("p");
-  bookDescription.textContent = book.description;
+  bookDescription.textContent = book.author;
   bookDescription.className = "description";
 
   let bookPages = document.createElement("p");
