@@ -11,6 +11,39 @@ const newBookForm = document.querySelector(".new-book");
 // Define arrow function modules to be called later
 
 const mySecModule = (() => {
+
+   function _removeCard(e) {
+     e.target.parentNode.remove();
+     bookIndex = e.target.parentNode.getAttribute("data-idx");
+     myLibrary.splice(bookIndex, 1);
+     libraryController.saveLocal(myLibrary);
+     libraryController.clearBooks();
+     libraryController.loadBooks(myLibrary);
+   }
+
+   function _switchReadStatus(e) {
+     // switch button and read status for a book
+     libraryController.clearBooks();
+     libraryController.loadBooks(myLibrary);
+     bookIndex = e.target.parentNode.getAttribute("data-idx");
+     book = myLibrary[bookIndex];
+     let text = e.target.parentNode.querySelector(".read-status-text");
+
+     if (book.status === true) {
+       book.status = false;
+       e.target.textContent = "Read";
+       text.textContent = "You have not read this book.";
+     } else {
+       book.status = true;
+       e.target.textContent = "Unread";
+       text.textContent = "You have read this book.";
+     }
+
+     libraryController.saveLocal(myLibrary);
+     libraryController.clearBooks();
+     libraryController.loadBooks(myLibrary);
+   }
+
   function addBookToLibrary(book) {
     let bookCard = document.createElement("div");
     bookCard.className = "book-card";
@@ -43,12 +76,12 @@ const mySecModule = (() => {
     } else {
       changeReadStatusBtn.textContent = "Read";
     }
-    changeReadStatusBtn.addEventListener("click", switchReadStatus);
+    changeReadStatusBtn.addEventListener("click", _switchReadStatus);
 
     let removeBtn = document.createElement("button");
     removeBtn.className = "remove-btn";
     removeBtn.textContent = "Remove Book";
-    removeBtn.addEventListener("click", removeCard);
+    removeBtn.addEventListener("click", _removeCard);
 
     bookCard.append(
       bookTitle,
@@ -59,38 +92,6 @@ const mySecModule = (() => {
       removeBtn
     );
     booksContainer.appendChild(bookCard);
-  }
-
-  function removeCard(e) {
-    e.target.parentNode.remove();
-    bookIndex = e.target.parentNode.getAttribute("data-idx");
-    myLibrary.splice(bookIndex, 1);
-    libraryController.saveLocal(myLibrary);
-    libraryController.clearBooks();
-    libraryController.loadBooks(myLibrary);
-  }
-
-  function switchReadStatus(e) {
-    // switch button and read status for a book
-    libraryController.clearBooks();
-    libraryController.loadBooks(myLibrary);
-    bookIndex = e.target.parentNode.getAttribute("data-idx");
-    book = myLibrary[bookIndex];
-    let text = e.target.parentNode.querySelector(".read-status-text");
-
-    if (book.status === true) {
-      book.status = false;
-      e.target.textContent = "Read";
-      text.textContent = "You have not read this book.";
-    } else {
-      book.status = true;
-      e.target.textContent = "Unread";
-      text.textContent = "You have read this book.";
-    }
-
-    libraryController.saveLocal(myLibrary);
-    libraryController.clearBooks();
-    libraryController.loadBooks(myLibrary);
   }
 
   return { addBookToLibrary };
